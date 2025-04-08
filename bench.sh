@@ -8,7 +8,7 @@ BFC="./bfc"
 BFF="bff"
 
 # List of Brainfuck programs to test
-PROGRAMS=("programs/mandelbrot.bf" "programs/xmastree.bf" "programs/dquine.bf" "programs/squares.bf") # Add more programs here
+PROGRAMS=("programs/mandelbrot.bf" "programs/dquine.bf" "programs/squares.bf") # Add more programs here
 OUTPUT_FILE="benchmark_results.csv"
 
 # Create CSV file with headers
@@ -28,14 +28,15 @@ for prog in "${PROGRAMS[@]}"; do
     echo "Running bfc for $prog..."
     $BFC "$prog" -O2
     # Remove the .bf extension from the program name (to use it as the output filename)
-    BFC_OUTPUT="${prog%.bf}"
+    BFC_OUTPUT=$(basename -- "$prog")
+    BFC_OUTPUT="${BFC_OUTPUT%.*}"
     # Measure time for bfc
     BFC_TIME=$(time (./"$BFC_OUTPUT") 2>&1 | grep real | awk '{print $2}' | sed 's/s//')
 
     # Run bff (Interpreter)
     echo "Running bff (Interpreter) for $prog..."
     # Measure time for bff
-    BFF_TIME=$(time (./$BFF "$prog") 2>&1 | grep real | awk '{print $2}' | sed 's/s//')
+    BFF_TIME=$(time ($BFF "$prog") 2>&1 | grep real | awk '{print $2}' | sed 's/s//')
 
     # Append results to CSV
     echo "$prog,$BF_RS_TIME,$BFC_TIME,$BFF_TIME" >>"$OUTPUT_FILE"
