@@ -1,4 +1,5 @@
 Program,brainfuck-rs (AOT),bfc (C/ASM),bff (Interpreter)
-programs/mandelbrot.bf,,,
-programs/dquine.bf,,,
-programs/squares.bf,,,
+programs/mandelbrot.bf,0m1.411,0m0.641,0m3.953
+programs/dquine.bf,0m0.001,0m0.000,0m0.001
+programs/squares.bf,0m0.001,0m0.000,0m0.002
+programs/jabh.bf,0m0.000,0m0.000,0m0.001
